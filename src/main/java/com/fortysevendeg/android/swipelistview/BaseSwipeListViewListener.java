@@ -41,4 +41,12 @@ public class BaseSwipeListViewListener implements SwipeListViewListener {
     public int onChangeSwipeMode(int position) {
         return SwipeListView.SWIPE_MODE_DEFAULT;
     }
+
+    @Override
+    public void onReleaseOnBackViewAt(int position,int location,boolean right) {
+    }
+
+    @Override
+    public void onFinishedDeleteAnimationBackViewAt(int position, int location) {
+    }
 }

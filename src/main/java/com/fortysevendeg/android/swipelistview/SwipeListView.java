@@ -113,6 +113,7 @@ public class SwipeListView extends ListView {
     int swipeFrontView = 0;
     int swipeBackView = 0;
 
+    int switcherIndicatorGroupView = 0;
     /**
      * Internal listener for common swipe events
      */
@@ -167,6 +168,14 @@ public class SwipeListView extends ListView {
         float swipeOffsetLeft = 0;
         float swipeOffsetRight = 0;
 
+        float smallLeftPortion = 0;
+        float mediumLeftPortion = 0;
+        float largeLeftPortion = 0;
+
+        float smallRightPortion = 0;
+        float mediumRightPortion = 0;
+        float largeRightPortion = 0;
+
         int swipeActionLeft = SWIPE_ACTION_REVEAL;
         int swipeActionRight = SWIPE_ACTION_REVEAL;
 
@@ -182,6 +191,15 @@ public class SwipeListView extends ListView {
             swipeCloseAllItemsWhenMoveList = styled.getBoolean(R.styleable.SwipeListView_swipeCloseAllItemsWhenMoveList, true);
             swipeFrontView = styled.getResourceId(R.styleable.SwipeListView_swipeFrontView, 0);
             swipeBackView = styled.getResourceId(R.styleable.SwipeListView_swipeBackView, 0);
+            switcherIndicatorGroupView = styled.getResourceId(R.styleable.SwipeListView_switcherIndicatorView, 0);
+
+            smallLeftPortion = styled.getFloat(R.styleable.SwipeListView_smallLeftPortion,1);
+            mediumLeftPortion = styled.getFloat(R.styleable.SwipeListView_mediumLeftPortion,2);
+            largeLeftPortion = styled.getFloat(R.styleable.SwipeListView_largeLeftPortion,3);
+
+            smallRightPortion = styled.getFloat(R.styleable.SwipeListView_smallRightPortion,1);
+            mediumRightPortion = styled.getFloat(R.styleable.SwipeListView_mediumRightPortion,2);
+            largeRightPortion = styled.getFloat(R.styleable.SwipeListView_largeRightPortion,3);
         }
 
         if (swipeFrontView == 0 || swipeBackView == 0) {
@@ -195,7 +213,7 @@ public class SwipeListView extends ListView {
 
         final ViewConfiguration configuration = ViewConfiguration.get(getContext());
         touchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(configuration);
-        touchListener = new SwipeListViewTouchListener(this, swipeFrontView, swipeBackView);
+        touchListener = new SwipeListViewTouchListener(this, swipeFrontView, swipeBackView, switcherIndicatorGroupView);
         if (swipeAnimationTime > 0) {
             touchListener.setAnimationTime(swipeAnimationTime);
         }
@@ -206,6 +224,10 @@ public class SwipeListView extends ListView {
         touchListener.setSwipeMode(swipeMode);
         touchListener.setSwipeClosesAllItemsWhenListMoves(swipeCloseAllItemsWhenMoveList);
         touchListener.setSwipeOpenOnLongPress(swipeOpenOnLongPress);
+
+        touchListener.setLeftPortions(new float[]{smallLeftPortion,mediumLeftPortion,largeLeftPortion});
+        touchListener.setRightPortions(new float[]{smallRightPortion, mediumRightPortion, largeRightPortion});
+
         setOnTouchListener(touchListener);
         setOnScrollListener(touchListener.makeScrollListener());
     }
@@ -276,6 +298,18 @@ public class SwipeListView extends ListView {
     protected void onStartClose(int position, boolean right) {
         if (swipeListViewListener != null) {
             swipeListViewListener.onStartClose(position, right);
+        }
+    }
+
+    protected void onReleaseOnBackViewAt(int position,int location ,boolean right){
+        if (swipeListViewListener != null) {
+            swipeListViewListener.onReleaseOnBackViewAt(position,location,right);
+        }
+    }
+
+    protected void onFinishedDeleteAnimationBackViewAt(int position,int location ){
+        if (swipeListViewListener != null) {
+            swipeListViewListener.onFinishedDeleteAnimationBackViewAt(position,location);
         }
     }
 

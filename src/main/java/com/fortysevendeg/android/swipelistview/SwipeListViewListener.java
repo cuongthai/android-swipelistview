@@ -90,4 +90,8 @@ public interface SwipeListViewListener {
      */
     int onChangeSwipeMode(int position);
 
+    void onReleaseOnBackViewAt(int position,int location,boolean right);
+
+    void onFinishedDeleteAnimationBackViewAt(int position,int location);
+
 }

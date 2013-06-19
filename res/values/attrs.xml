@@ -26,6 +26,7 @@
         <attr name="swipeCloseAllItemsWhenMoveList" format="boolean"/>
         <attr name="swipeFrontView" format="reference"/>
         <attr name="swipeBackView" format="reference"/>
+        <attr name="switcherIndicatorView" format="reference"/>
         <attr name="swipeMode" format="enum">
             <enum name="none" value="0"/>
             <enum name="both" value="1"/>
@@ -40,6 +41,13 @@
             <enum name="reveal" value="0"/>
             <enum name="dismiss" value="1"/>
         </attr>
+        <attr name="smallLeftPortion" format="float"/>
+        <attr name="mediumLeftPortion" format="float"/>
+        <attr name="largeLeftPortion" format="float"/>
+
+        <attr name="smallRightPortion" format="float"/>
+        <attr name="mediumRightPortion" format="float"/>
+        <attr name="largeRightPortion" format="float"/>
     </declare-styleable>
 
 </resources>
